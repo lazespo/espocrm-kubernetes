@@ -42,6 +42,12 @@ Check pods statuses:
 kubectl get pods -n espocrm
 ```
 
+Check all elements statuses:
+
+```bash
+kubectl get pods,svc,ingress,pvc -n espocrm
+```
+
 Stop pods:
 
 ```bash
@@ -54,12 +60,6 @@ Start pods:
 ```bash
 kubectl scale statefulset espocrm --replicas=1 -n espocrm
 kubectl scale statefulset espocrm-db --replicas=1 -n espocrm
-```
-
-Delete deployment (full uninstall):
-
-```bash
-kubectl delete namespace espocrm
 ```
 
 Execute pod container:
@@ -76,8 +76,8 @@ kubectl logs statefulset/espocrm -c {CONTAINER_NAME} -n espocrm
 kubectl logs statefulset/espocrm-db -n espocrm
 ```
 
-Check all elements statuses:
+Delete deployment (full uninstall):
 
 ```bash
-kubectl get pods,svc,ingress,pvc -n espocrm
+kubectl delete namespace espocrm
 ```
