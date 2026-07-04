@@ -11,13 +11,13 @@ spec:
         pathType: Prefix
         backend:
           service:
-            name: espo-service
+            name: espocrm-service
             port:
               number: 80
       - path: /ws
         pathType: Prefix
         backend:
           service:
-            name: espo-service
+            name: espocrm-service
             port:
               number: 8080
