@@ -11,6 +11,14 @@ sudo chown $USER:$USER ~/.kube/config
 
 ## Deploy EspoCRM
 
+Note: before deploying you can change storage resources in the `espocrm-storage.yaml` file. 
+The following resources is setted up by default:
+
+- Database: 10Gi
+- EspoCRM */data* directory: 10Gi
+- EspoCRM */custom* directory: 5Gi
+- EspoCRM */client/custom* directory: 5Gi
+ 
 ```bash
 kubectl apply -f espocrm-storage.yaml
 kubectl apply -f espocrm-ingress.yaml
