@@ -3,6 +3,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: espocrm
+  namespace: espocrm
 spec:
   replicas: 1
   selector:
@@ -95,6 +96,7 @@ apiVersion: v1
 kind: Service
 metadata:
   name: espocrm-service
+  namespace: espocrm
 spec:
   type: ClusterIP
   ports:
