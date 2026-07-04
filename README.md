@@ -18,9 +18,16 @@ The following resources is setted up by default:
 - EspoCRM */data* directory: 10Gi
 - EspoCRM */custom* directory: 5Gi
 - EspoCRM */client/custom* directory: 5Gi
- 
+
+1. Create namespace for EspoCRM:
+
 ```bash
 kubectl create namespace espocrm
+```
+
+2. Apply deployment:
+   
+```bash
 kubectl apply -f espocrm-storage.yaml
 kubectl apply -f espocrm-ingress.yaml
 kubectl apply -f espocrm-db.yaml
@@ -49,13 +56,10 @@ kubectl scale deployment espocrm --replicas=1
 kubectl scale deployment espocrm-db --replicas=1
 ```
 
-Remove pods (full uninstall):
+Delete deployment (full uninstall):
 
 ```bash
-kubectl delete -f espocrm-ingress.yaml
-kubectl delete -f espocrm.yaml
-kubectl delete -f espocrm-db.yaml
-kubectl delete -f espocrm-storage.yaml
+kubectl delete namespace espocrm
 ```
 
 Execute pod container:
