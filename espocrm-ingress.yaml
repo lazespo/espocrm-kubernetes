@@ -4,12 +4,19 @@ kind: Ingress
 metadata:
   name: espocrm-ingress
   annotations:
-    ingress.kubernetes.io/proxy-body-size: "50m"
+    nginx.ingress.kubernetes.io/proxy-body-size: "50m"
 spec:
   rules:
   - http:
       paths:
       - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: espo-service
+            port:
+              number: 80
+      - path: /ws
         pathType: Prefix
         backend:
           service:
