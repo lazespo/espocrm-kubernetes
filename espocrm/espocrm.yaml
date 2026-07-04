@@ -1,10 +1,11 @@
 # espocrm.yaml
 apiVersion: apps/v1
-kind: Deployment
+kind: StatefulSet
 metadata:
   name: espocrm
   namespace: espocrm
 spec:
+  serviceName: "espocrm-service"
   replicas: 1
   selector:
     matchLabels:
