@@ -28,7 +28,7 @@ spec:
             - name: ESPOCRM_ADMIN_PASSWORD
               value: "password"
             - name: ESPOCRM_SITE_URL
-              value: "http://{ESPOCRM_DOMAIN}"
+              value: "http://localhost"
           ports:
             - name: http
               containerPort: 80
@@ -39,7 +39,7 @@ spec:
             periodSeconds: 60
             timeoutSeconds: 20
           volumeMounts: &espo_mounts
-           - name: espocrm-data
+            - name: espocrm-data
               mountPath: /var/www/html/data
             - name: espocrm-custom
               mountPath: /var/www/html/custom
@@ -64,7 +64,7 @@ spec:
             - name: ESPOCRM_CONFIG_USE_WEB_SOCKET
               value: "true"
             - name: ESPOCRM_CONFIG_WEB_SOCKET_URL
-              value: "ws://{ESPOCRM_DOMAIN}/ws"
+              value: "ws://localhost/ws"
             - name: ESPOCRM_CONFIG_WEB_SOCKET_ZERO_M_Q_SUBSCRIBER_DSN
               value: "tcp://*:7777"
             - name: ESPOCRM_CONFIG_WEB_SOCKET_ZERO_M_Q_SUBMISSION_DSN
@@ -78,7 +78,7 @@ spec:
             initialDelaySeconds: 20
             periodSeconds: 180
             timeoutSeconds: 20
-         volumeMounts: *espo_mounts
+          volumeMounts: *espo_mounts
 
       volumes:
         - name: espocrm-data
