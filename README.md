@@ -23,3 +23,9 @@ Check statuses:
 ```
 kubectl get pods
 ```
+
+Execute pod container:
+
+```
+kubectl exec -it {POD_NAME} -c {CONTAINER_NAME} -- /bin/bash
+```
