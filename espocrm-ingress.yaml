@@ -3,6 +3,7 @@ apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: espocrm-ingress
+  namespace: espocrm
 spec:
   rules:
   - http:
