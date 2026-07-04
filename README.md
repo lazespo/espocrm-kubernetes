@@ -72,8 +72,8 @@ kubectl -n espocrm exec -it espocrm-db-0 -- /bin/bash
 Check logs:
 
 ```bash
-kubectl logs deployment/espocrm -c {CONTAINER_NAME} -n espocrm
-kubectl logs deployment/espocrm-db -n espocrm
+kubectl logs statefulset/espocrm -c {CONTAINER_NAME} -n espocrm
+kubectl logs statefulset/espocrm-db -n espocrm
 ```
 
 Check all elements statuses:
