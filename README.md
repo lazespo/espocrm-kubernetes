@@ -35,3 +35,9 @@ Check container logs:
 ```bash
 kubectl logs deployment/espocrm -c espocrm
 ```
+
+Check storage (volumes):
+
+```bash
+kubectl get pvc
+```
