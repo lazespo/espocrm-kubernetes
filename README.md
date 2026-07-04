@@ -20,6 +20,7 @@ The following resources is setted up by default:
 - EspoCRM */client/custom* directory: 5Gi
  
 ```bash
+kubectl create namespace espocrm
 kubectl apply -f espocrm-storage.yaml
 kubectl apply -f espocrm-ingress.yaml
 kubectl apply -f espocrm-db.yaml
