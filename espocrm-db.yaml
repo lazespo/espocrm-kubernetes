@@ -1,0 +1,55 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: espocrm-db
+spec:
+  selector:
+    matchLabels:
+      app: espocrm-db
+  template:
+    metadata:
+      labels:
+        app: espocrm-db
+    spec:
+      containers:
+        - name: espocrm-db
+          image: mariadb:latest
+          env:
+            - name: MARIADB_ROOT_PASSWORD
+              value: "root_password"
+            - name: MARIADB_DATABASE
+              value: "espocrm"
+            - name: MARIADB_USER
+              value: "espocrm"
+            - name: MARIADB_PASSWORD
+              value: "database_password"
+          ports:
+            - containerPort: 3306
+          readinessProbe:
+            exec:
+              command: ["healthcheck.sh", "--connect", "--innodb_initialized"]
+            initialDelaySeconds: 10
+            periodSeconds: 20
+            timeoutSeconds: 10
+          livenessProbe:
+            exec:
+              command: ["healthcheck.sh", "--connect", "--innodb_initialized"]
+            initialDelaySeconds: 20
+            periodSeconds: 20
+           volumeMounts:
+            - name: db-storage
+              mountPath: /var/lib/mysql
+      volumes:
+        - name: db-storage
+          persistentVolumeClaim:
+            claimName: espocrm-db-pvc
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: espocrm-db
+spec:
+  ports:
+    - port: 3306
+  selector:
+    app: espocrm-db
