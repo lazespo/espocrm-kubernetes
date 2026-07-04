@@ -1,4 +1,3 @@
-# espocrm-db.yaml
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -37,7 +36,7 @@ spec:
               command: ["healthcheck.sh", "--connect", "--innodb_initialized"]
             initialDelaySeconds: 20
             periodSeconds: 20
-           volumeMounts:
+          volumeMounts:
             - name: db-storage
               mountPath: /var/lib/mysql
       volumes:
