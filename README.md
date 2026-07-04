@@ -1,6 +1,6 @@
 # Installation with Kubernetes
 
-## Install K3S
+## Install K3S (one-time)
 
 ```bash
 curl -sfL https://get.k3s.io | sh -
