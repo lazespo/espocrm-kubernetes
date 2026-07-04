@@ -45,15 +45,15 @@ kubectl get pods -n espocrm
 Stop pods:
 
 ```bash
-kubectl scale deployment espocrm --replicas=0 -n espocrm
-kubectl scale deployment espocrm-db --replicas=0 -n espocrm
+kubectl scale statefulset espocrm --replicas=0 -n espocrm
+kubectl scale statefulset espocrm-db --replicas=0 -n espocrm
 ```
 
 Start pods:
 
 ```bash
-kubectl scale deployment espocrm --replicas=1 -n espocrm
-kubectl scale deployment espocrm-db --replicas=1 -n espocrm
+kubectl scale statefulset espocrm --replicas=1 -n espocrm
+kubectl scale statefulset espocrm-db --replicas=1 -n espocrm
 ```
 
 Delete deployment (full uninstall):
