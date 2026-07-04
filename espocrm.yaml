@@ -28,7 +28,7 @@ spec:
             - name: ESPOCRM_ADMIN_PASSWORD
               value: "password"
             - name: ESPOCRM_SITE_URL
-              value: "http://localhost"
+              value: "http://{ESPOCRM_DOMAIN}"
           ports:
             - name: http
               containerPort: 80
@@ -64,7 +64,7 @@ spec:
             - name: ESPOCRM_CONFIG_USE_WEB_SOCKET
               value: "true"
             - name: ESPOCRM_CONFIG_WEB_SOCKET_URL
-              value: "ws://localhost:8081"
+              value: "ws://{ESPOCRM_DOMAIN}/ws"
             - name: ESPOCRM_CONFIG_WEB_SOCKET_ZERO_M_Q_SUBSCRIBER_DSN
               value: "tcp://*:7777"
             - name: ESPOCRM_CONFIG_WEB_SOCKET_ZERO_M_Q_SUBMISSION_DSN
@@ -96,15 +96,13 @@ kind: Service
 metadata:
   name: espo-service
 spec:
-  type: NodePort
+  type: ClusterIP
   ports:
     - name: http
-      port: 8080
+      port: 80
       targetPort: 80
-      nodePort: 8080
     - name: websocket
-      port: 8081
+      port: 8080
       targetPort: 8080
-      nodePort: 8081
   selector:
     app: espocrm
