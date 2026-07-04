@@ -39,7 +39,7 @@ kubectl apply -f espocrm.yaml
 Check pods statuses:
 
 ```bash
-kubectl get pods
+kubectl get pods -n espocrm
 ```
 
 Stop pods:
@@ -78,5 +78,5 @@ kubectl logs deployment/espocrm-db
 Check all elements statuses:
 
 ```bash
-kubectl get pods,svc,ingress,pvc
+kubectl get pods,svc,ingress,pvc -n espocrm
 ```
