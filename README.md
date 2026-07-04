@@ -63,10 +63,11 @@ Execute pod container:
 kubectl exec -it {POD_NAME} -c {CONTAINER_NAME} -- /bin/bash
 ```
 
-Check container logs:
+Check logs:
 
 ```bash
-kubectl logs deployment/espocrm -c espocrm
+kubectl logs deployment/espocrm -c {CONTAINER_NAME}
+kubectl logs deployment/espocrm-db
 ```
 
 Check all elements statuses:
