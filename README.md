@@ -65,7 +65,8 @@ kubectl delete namespace espocrm
 Execute pod container:
 
 ```bash
-kubectl exec -it {POD_NAME} -c {CONTAINER_NAME} -- /bin/bash
+kubectl -n espocrm exec -it espocrm-0 -c {CONTAINER_NAME} -- /bin/bash
+kubectl -n espocrm exec -it espocrm-db-0 -- /bin/bash
 ```
 
 Check logs:
