@@ -1,0 +1,109 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: espocrm
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: espocrm
+  template:
+    metadata:
+      labels:
+        app: espocrm
+    spec:
+      containers:
+        - name: espocrm
+          image: espocrm/espocrm:latest
+          env:
+            - name: ESPOCRM_DATABASE_HOST
+              value: "espocrm-db"
+            - name: ESPOCRM_DATABASE_USER
+              value: "espocrm"
+            - name: ESPOCRM_DATABASE_PASSWORD
+              value: "database_password"
+            - name: ESPOCRM_ADMIN_USERNAME
+              value: "admin"
+            - name: ESPOCRM_ADMIN_PASSWORD
+              value: "password"
+            - name: ESPOCRM_SITE_URL
+              value: "http://localhost"
+          ports:
+            - name: http
+              containerPort: 80
+          readinessProbe:
+            exec:
+              command: ["bin/command", "app-check"]
+            initialDelaySeconds: 20
+            periodSeconds: 60
+            timeoutSeconds: 20
+          volumeMounts: &espo_mounts
+           - name: espocrm-data
+              mountPath: /var/www/html/data
+            - name: espocrm-custom
+              mountPath: /var/www/html/custom
+            - name: espocrm-custom-client
+              mountPath: /var/www/html/client/custom
+
+        - name: espocrm-daemon
+          image: espocrm/espocrm:latest
+          command: ["docker-daemon.sh"]
+          readinessProbe:
+            exec:
+              command: ["bin/command", "app-check"]
+            initialDelaySeconds: 20
+            periodSeconds: 180
+            timeoutSeconds: 20
+          volumeMounts: *espo_mounts
+
+        - name: espocrm-websocket
+          image: espocrm/espocrm:latest
+          command: ["docker-websocket.sh"]
+          env:
+            - name: ESPOCRM_CONFIG_USE_WEB_SOCKET
+              value: "true"
+            - name: ESPOCRM_CONFIG_WEB_SOCKET_URL
+              value: "ws://localhost:8081"
+            - name: ESPOCRM_CONFIG_WEB_SOCKET_ZERO_M_Q_SUBSCRIBER_DSN
+              value: "tcp://*:7777"
+            - name: ESPOCRM_CONFIG_WEB_SOCKET_ZERO_M_Q_SUBMISSION_DSN
+              value: "tcp://localhost:7777"
+          ports:
+            - name: websocket
+              containerPort: 8080
+          readinessProbe:
+            exec:
+              command: ["bin/command", "app-check"]
+            initialDelaySeconds: 20
+            periodSeconds: 180
+            timeoutSeconds: 20
+         volumeMounts: *espo_mounts
+
+      volumes:
+        - name: espocrm-data
+          persistentVolumeClaim:
+            claimName: espocrm-data-pvc
+        - name: espocrm-custom
+          persistentVolumeClaim:
+            claimName: espocrm-custom-pvc
+        - name: espocrm-custom-client
+          persistentVolumeClaim:
+            claimName: espocrm-custom-client-pvc
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: espo-service
+spec:
+  type: NodePort
+  ports:
+    - name: http
+      port: 8080
+      targetPort: 80
+      nodePort: 8080
+    - name: websocket
+      port: 8081
+      targetPort: 8080
+      nodePort: 8081
+  selector:
+    app: espocrm
