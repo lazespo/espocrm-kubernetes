@@ -18,10 +18,35 @@ kubectl apply -f espocrm-db.yaml
 kubectl apply -f espocrm.yaml
 ```
 
+## Commands
+
 Check pods statuses:
 
 ```bash
 kubectl get pods
+```
+
+Stop pods:
+
+```bash
+kubectl scale deployment espocrm --replicas=0
+kubectl scale deployment espocrm-db --replicas=0
+```
+
+Start pods:
+
+```bash
+kubectl scale deployment espocrm --replicas=1
+kubectl scale deployment espocrm-db --replicas=1
+```
+
+Remove pods (full uninstall):
+
+```bash
+kubectl delete -f espocrm-ingress.yaml
+kubectl delete -f espocrm.yaml
+kubectl delete -f espocrm-db.yaml
+kubectl delete -f espocrm-storage.yaml
 ```
 
 Execute pod container:
@@ -36,8 +61,8 @@ Check container logs:
 kubectl logs deployment/espocrm -c espocrm
 ```
 
-Check storage (volumes):
+Check all elements statuses:
 
 ```bash
-kubectl get pvc
+kubectl get pods,svc,ingress,pvc
 ```
