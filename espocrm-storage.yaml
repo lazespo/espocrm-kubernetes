@@ -3,6 +3,7 @@ apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
   name: espocrm-db-pvc
+  namespace: espocrm
 spec:
   accessModes:
     - ReadWriteOnce
@@ -15,6 +16,7 @@ apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
   name: espocrm-data-pvc
+  namespace: espocrm
 spec:
   accessModes:
     - ReadWriteOnce
@@ -27,6 +29,7 @@ apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
   name: espocrm-custom-pvc
+  namespace: espocrm
 spec:
   accessModes:
     - ReadWriteOnce
@@ -39,6 +42,7 @@ apiVersion: v1
 kind: PersistentVolumeClaim
 metadata:
   name: espocrm-custom-client-pvc
+  namespace: espocrm
 spec:
   accessModes:
     - ReadWriteOnce
